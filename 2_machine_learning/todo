@@ -1,0 +1,5 @@
+Multiple Lineare Regression
+
+Prüfen ob der Gradient Schritt am Ende korrekt ist und wie man noch e_i substituiert
+
+Prüfen ob das Ableiten von MSE nach w,b so Sinn ergibt weil es ist ja nur für eine reihe und wir übertragen dass dann auf alle Datenreihen
