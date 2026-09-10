@@ -18,7 +18,7 @@ def gradient_descent_single(X: pd.Series, y: pd.Series, learning_rate: float, ma
         b_vals.append(b_vals[-1] - learning_rate * b_gradient)
         w_vals.append(w_vals[-1] - learning_rate * w_gradient)
 
-        if abs(b_gradient) < tol and abs(w_gradient) < tol:
+        if np.linalg.norm(b_gradient) < tol and np.linalg.norm(w_gradient) < tol:
             break
     
     return [w_vals, b_vals]
@@ -34,8 +34,11 @@ def linear_regression_single(X: pd.Series,
     assert type(X) == pd.Series
     assert type(y) == pd.Series
 
-    w_vals, b_vals = gradient_descent_single(X, y, learning_rate, max_iters, tol)
+    assert np.issubdtype(X.dtype, np.number)
+    assert np.issubdtype(y.dtype, np.number)
 
-    return [w_vals[-1], b_vals[-1]] if not history else [w_vals, b_vals] 
+    w, b = gradient_descent_single(X, y, learning_rate, max_iters, tol)
+
+    return (w[-1], b[-1]) if not history else (w, b)
 
  

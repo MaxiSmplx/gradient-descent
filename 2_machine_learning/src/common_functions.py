@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 
 def plot_data(X, y):
     plt.scatter(X, y, label="Data", color="red")
@@ -7,8 +8,6 @@ def plot_data(X, y):
     plt.ylabel("y")
     plt.legend()
     plt.show()
-
-
 
 def plot_optimal_parameters(w_vals, b_vals, optimal_w: float = None, optimal_b: float = None):
     plt.figure(figsize=(8, 5))
@@ -52,3 +51,16 @@ def plot_gradient_progression_lr(X, y, w_vals, b_vals):
     plt.ylabel("y")
     plt.legend()
     plt.show()
+
+
+def compare_lr_to_sklearn(w, b, sklearn_lr):
+    return pd.DataFrame(
+        {
+            "LinearRegression": [w_i for w_i in w] + [b],
+            "Sklearn LinearRegression": [sklearn_lr_w_i for sklearn_lr_w_i in sklearn_lr.coef_] + [sklearn_lr.intercept_]
+        },
+        index=pd.MultiIndex.from_tuples(
+            [("weight", f"w_{i}") for i in range(len(w))] + [("intercept", "b")],
+            names=["parameter", "name"]
+        )
+    )
