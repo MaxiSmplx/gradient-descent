@@ -7,11 +7,12 @@
 Gradient Descent is one of the fundamental optimization algorithms underlying modern machine learning. This project explores Gradient Descent from first principles, progressing from mathematical optimization to its application in machine learning and finally to commonly used optimization variants.
 
 Gradient Descent is formally expressed as
-$$
-w_{n+1} = w_n - \eta \nabla L_w
-$$
 
-where $w_n$ is the current parameter value, $\eta$ is a constant learning rate and $\nabla L_w$ is the derived loss function with respect to $w$: $\frac{\partial L}{\partial w}$ 
+$$w_{n+1} = w_n - \eta \nabla L_w$$
+
+where $w_n$ is the current parameter value, $\eta$ is a constant learning rate and $\nabla L_w$ is the derived loss function with respect to $w$: 
+
+$$\nabla L_w = \frac{\partial L}{\partial w}$$ 
 
 This update rule states that the parameter $w$ is iteratively updated by subtracting the gradient of the loss function scaled by a learning rate $\eta$. 
 
