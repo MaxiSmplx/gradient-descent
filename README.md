@@ -75,7 +75,7 @@ The implementation progresses from the one-dimensional case to the general matri
 
 The project covers:
 
-* Linear regression from one-dimensional vectors to general matrices $X \in \R^{n \times m}$
+* Linear regression from one-dimensional vectors to general matrices $X \in \mathbb{R}^{n \times m}$
 * Parameter vectors and vectorized predictions
 * Step-by-step derivation of the MSE gradient
 * Parameter optimization and convergence
