@@ -13,6 +13,7 @@ class GradientDescent():
         self.loss = []
         self.w_hist = []
         self.b_hist = []
+        self.epochs_early_stop = 5
     
     def _loss(self, w, b):
         raise NotImplementedError
@@ -43,7 +44,7 @@ class GradientDescent():
 
         batch_iters = np.ceil(self.n / batch_size).astype(int)
 
-        for _ in range(epochs):
+        for epoch in range(epochs):
             indices = np.random.permutation(self.n)
 
             for i in range(batch_iters):
@@ -64,34 +65,35 @@ class GradientDescent():
                 self.b_hist.append(b)
                 self.w_hist.append(w.copy())
 
-            # if np.linalg.norm(w_gradient, ord=2) < tol and abs(b_gradient) < tol:
-            #    break
+            if epoch > self.epochs_early_stop:
+                if np.abs(self._loss[-self.epochs_early_stop] - self._loss[-1]) < tol:
+                    break
             
         return w, b
 
     def fit(self, 
             X: pd.DataFrame, 
             y: pd.Series, 
-            optimizer: Literal["batch", "stochastic", "mini_batch"] = "batch", 
+            batch_method: Literal["batch", "stochastic", "mini_batch"] = "batch", 
             learning_rate: float = 0.001, 
             epochs: int = 1_000, 
             batch_size: int = 32,
-            tol: float = 1e-6,
+            tol: float = 1e-4,
         ) -> None:
         assert type(X) == pd.DataFrame
         assert type(y) == pd.Series
 
-        if optimizer == "batch":
+        if batch_method == "batch":
             self.w, self.b = self._optimize(X, y, learning_rate=learning_rate, epochs=epochs, batch_size=X.shape[0], tol=tol)
         
-        elif optimizer == "stochastic":
+        elif batch_method == "stochastic":
             self.w, self.b = self._optimize(X, y, learning_rate=learning_rate, epochs=epochs, batch_size=1, tol=tol)
 
-        elif optimizer == "mini_batch":
+        elif batch_method == "mini_batch":
             self.w, self.b = self._optimize(X, y, learning_rate=learning_rate, epochs=epochs, batch_size=min(X.shape[0], batch_size), tol=tol)
         
         else:
-            raise ValueError(f"Optimizer {optimizer} does not exist. Choose: 'batch', 'stochastic', 'mini_batch'.")
+            raise ValueError(f"Batch method {batch_method} does not exist. Choose: 'batch', 'stochastic', 'mini_batch'.")
     
     @property
     def coefs_(self) -> np.ndarray:
