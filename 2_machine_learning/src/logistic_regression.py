@@ -15,9 +15,10 @@ class LogisticRegressionGD():
     def log_loss(self, y, y_pred_proba) -> float:
         boundary = np.finfo(float).eps
         y_pred_proba = np.clip(y_pred_proba, a_min=boundary, a_max=1-boundary)
+
         return -np.mean(y*np.log(y_pred_proba) + (1-y)*np.log(1-y_pred_proba))
 
-    def gradient_descent(self, X, y, learning_rate, max_iter, tol, verbose):
+    def gradient_descent(self, X, y, learning_rate, max_iter, tol):
         n_samples, m_features = X.shape
 
         w, b = np.zeros(m_features), np.float64(0.0)
@@ -26,13 +27,12 @@ class LogisticRegressionGD():
         self.X, self.y = X, y
 
         for i in range(max_iter):
-            if verbose and (i+1) % (max_iter//10) == 0:
-                print(f"Iteration {i+1}")
-            y_hat = self.sigmoid(X @ w + b)
+            y_hat = self.sigmoid(self.X @ w + b)
+            e = y_hat - y
 
             # transform w_gradient from normal array into vector of form R^(m x 1)
-            w_gradient = np.mean(X * (y_hat - y)[:, np.newaxis], axis=0)
-            b_gradient = np.mean(y_hat - y)
+            w_gradient = np.mean(self.X * e[:, np.newaxis], axis=0)
+            b_gradient = np.mean(e)
 
             w -= learning_rate * w_gradient
             b -= learning_rate * b_gradient
@@ -42,7 +42,7 @@ class LogisticRegressionGD():
 
         return w, b
 
-    def fit(self, X: pd.DataFrame, y: pd.Series, learning_rate: float = 0.001, max_iter: int = 10_000, tol: float = 1e-6, verbose: bool = False) -> None:
+    def fit(self, X: pd.DataFrame, y: pd.Series, learning_rate: float = 0.001, max_iter: int = 10_000, tol: float = 1e-6) -> None:
         assert type(X) == pd.DataFrame
         assert type(y) == pd.Series
 

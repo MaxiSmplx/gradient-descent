@@ -28,10 +28,10 @@ def gradient_descent(X, y, learning_rate: float, max_iters: int, tol: float):
         w -= learning_rate * w_gradient
         b -= learning_rate * b_gradient
 
-        if np.linalg.norm(w_gradient) < tol and np.linalg.norm(b_gradient) < tol:
+        if np.linalg.norm(w_gradient, ord=2) < tol and np.linalg.norm(np.array([b_gradient]), ord=2) < tol:
             break
 
-    return b, w
+    return w, b
 
     
 def linear_regression(X: pd.DataFrame, 
@@ -51,6 +51,6 @@ def linear_regression(X: pd.DataFrame,
         max_lr = max_learning_rate(X)
         assert learning_rate < max_lr, f"Gradient Descent will diverge with learning rate {learning_rate} as it can not be greater or equal to {max_lr:.6f}"
 
-    b, w = gradient_descent(X, y, learning_rate=learning_rate, max_iters=max_iters, tol=tol)
+    w, b = gradient_descent(X, y, learning_rate=learning_rate, max_iters=max_iters, tol=tol)
 
     return b, w

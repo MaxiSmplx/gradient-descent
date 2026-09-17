@@ -2,10 +2,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-def plot_data(X, y):
-    plt.scatter(X, y, label="Data", color="red")
-    plt.xlabel("x")
-    plt.ylabel("y")
+def plot_data(X, y, x_label: str = "x", y_label: str = "y", color: str = "blue"):
+    plt.scatter(X, y, label="Data",  color=color)
+    plt.xlabel(x_label)
+    plt.ylabel(y_label)
     plt.legend()
     plt.show()
 
