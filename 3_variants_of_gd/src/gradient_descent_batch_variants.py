@@ -109,7 +109,7 @@ class GradientDescent():
     
 
 class LinearRegression(GradientDescent):
-    def _loss(self, w, b):
+    def _loss(self, w, b) -> None:
         y_hat = self.X @ w + b
         self.loss.append(np.mean(np.power(self.y - y_hat, 2)))
 
@@ -129,7 +129,7 @@ class LinearRegression(GradientDescent):
 
 
 class LogisticRegression(GradientDescent):
-    def _loss(self, w, b):
+    def _loss(self, w, b) -> None:
         boundary = np.finfo(float).eps
         y_hat = np.clip(self._sigmoid(self.X @ w + b), a_min=boundary, a_max=1-boundary)
         self.loss.append(-np.mean(self.y * np.log(y_hat) + (1-self.y) * np.log(1-y_hat)))

@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def plot_function(f: callable, x_max: int):
+def plot_function(f: callable, x_max: int) -> None:
     x_values = np.linspace(-x_max, x_max, 200)
     y_values = f(x_values)
 
@@ -11,7 +11,7 @@ def plot_function(f: callable, x_max: int):
     plt.show()
 
 
-def plot_function_and_gd(f: callable, x_history: list[float], x_max: int):
+def plot_function_and_gd(f: callable, x_history: list[float], x_max: int) -> None:
     x_values = np.linspace(-x_max, x_max, 200)
     y_values = f(x_values)
 

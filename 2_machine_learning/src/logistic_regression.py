@@ -9,16 +9,16 @@ class LogisticRegressionGD():
         self.X = None
         self.y = None
 
-    def sigmoid(self, t):
+    def sigmoid(self, t: np.ndarray) -> np.ndarray:
         return 1 / (1 + np.exp(-t))
     
-    def log_loss(self, y, y_pred_proba) -> float:
+    def log_loss(self, y: np.ndarray, y_pred_proba: np.ndarray) -> float:
         boundary = np.finfo(float).eps
         y_pred_proba = np.clip(y_pred_proba, a_min=boundary, a_max=1-boundary)
 
         return -np.mean(y*np.log(y_pred_proba) + (1-y)*np.log(1-y_pred_proba))
 
-    def gradient_descent(self, X, y, learning_rate, max_iter, tol):
+    def gradient_descent(self, X, y, learning_rate: float, max_iter: int, tol: float) -> tuple[np.ndarray, float]:
         n_samples, m_features = X.shape
 
         w, b = np.zeros(m_features), np.float64(0.0)
@@ -49,7 +49,7 @@ class LogisticRegressionGD():
         assert X.select_dtypes(include=np.number).shape[1] == X.shape[1]
         assert np.issubdtype(y.dtype, np.number)
 
-        w, b = self.gradient_descent(X, y, learning_rate, max_iter, tol, verbose)
+        w, b = self.gradient_descent(X, y, learning_rate, max_iter, tol)
 
         self.w = w
         self.b = b

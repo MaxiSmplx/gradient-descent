@@ -9,7 +9,7 @@ def max_learning_rate(X: pd.DataFrame) -> float:
 
     return n/lambda_max
 
-def gradient_descent(X, y, learning_rate: float, max_iters: int, tol: float):
+def gradient_descent(X, y, learning_rate: float, max_iters: int, tol: float) -> tuple[float, float]:
     n_samples, m_features = X.shape
 
     X, y  = X.to_numpy(), y.to_numpy()
@@ -40,7 +40,7 @@ def linear_regression(X: pd.DataFrame,
                       max_iters: int = 1_000, 
                       tol: float = 1e-6,
                       divergance_check: bool = False
-) -> dict[str: float]:
+) -> tuple[np.ndarray, float]:
     assert type(X) == pd.DataFrame
     assert type(y) == pd.Series
 

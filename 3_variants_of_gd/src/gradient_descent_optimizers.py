@@ -3,7 +3,13 @@ import pandas as pd
 from typing import Literal
 
 class Optimizer():
-    def _update_parameters(self, w, b, w_gradient, b_gradient, learning_rate):
+    def _update_parameters(self, 
+                           w: np.ndarray, 
+                           b: float, 
+                           w_gradient: np.ndarray, 
+                           b_gradient:float, 
+                           learning_rate: float
+    ) -> tuple[np.ndarray, float]:
         raise NotImplementedError
     
 

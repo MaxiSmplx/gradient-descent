@@ -30,7 +30,7 @@ def linear_regression_single(X: pd.Series,
                              max_iters: int = 500, 
                              tol: float = 1e-6, 
                              history: bool = False
-) -> list:
+) -> tuple:
     assert type(X) == pd.Series
     assert type(y) == pd.Series
 

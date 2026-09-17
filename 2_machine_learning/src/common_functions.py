@@ -2,14 +2,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-def plot_data(X, y, x_label: str = "x", y_label: str = "y", color: str = "blue"):
+def plot_data(X, y, x_label: str = "x", y_label: str = "y", color: str = "blue") -> None:
     plt.scatter(X, y, label="Data",  color=color)
     plt.xlabel(x_label)
     plt.ylabel(y_label)
     plt.legend()
     plt.show()
 
-def plot_optimal_parameters(w_vals, b_vals, optimal_w: float = None, optimal_b: float = None):
+def plot_optimal_parameters(w_vals, b_vals, optimal_w: float = None, optimal_b: float = None) -> None:
     plt.figure(figsize=(8, 5))
 
     plt.plot(w_vals, label="w", color="blue")
@@ -27,7 +27,7 @@ def plot_optimal_parameters(w_vals, b_vals, optimal_w: float = None, optimal_b: 
     plt.show()
 
 
-def plot_gradient_progression_lr(X, y, w_vals, b_vals):
+def plot_gradient_progression_lr(X, y, w_vals, b_vals) -> None:
     n_iter = len(w_vals)
 
     n_early = max(4, int(n_iter * 0.01))
@@ -53,7 +53,7 @@ def plot_gradient_progression_lr(X, y, w_vals, b_vals):
     plt.show()
 
 
-def compare_lr_to_sklearn(w, b, sklearn_lr):
+def compare_lr_to_sklearn(w, b, sklearn_lr) -> pd.DataFrame:
     return pd.DataFrame(
         {
             "LinearRegression": [w_i for w_i in w] + [b],
